@@ -992,13 +992,38 @@ body {
 </div></div></div>
 <div class="auth-right"><div class="auth-form-wrap">
 <button class="auth-back" onclick="gotoLanding()">&larr; <span id="l-back">Retour &#224; l'accueil</span></button>
+
+<!-- STEP 1: Email + Password -->
+<div id="login-step1">
 <div class="auth-form-title" id="l-title">Connexion</div>
 <div class="auth-form-sub" id="l-sub">Utilisez votre compte entreprise TK Home Solutions</div>
 <div class="alert-box err" id="login-err"></div>
-<div class="form-group"><label id="l-el">Email professionnel</label><input type="email" id="login-email" placeholder="prenom.nom@tkelevator.com" /><div class="field-hint info" id="l-eh">Doit &#234;tre une adresse @tkelevator.com</div></div>
+<div class="form-group"><label id="l-el">Email</label><input type="email" id="login-email" placeholder="prenom.nom@votreentreprise.com" /><div class="field-hint info" id="l-eh">Entrez votre adresse email</div></div>
 <div class="form-group"><label id="l-pl">Mot de passe</label><input type="password" id="login-pass" placeholder="Entrez votre mot de passe" onkeydown="if(event.key==='Enter')doLogin()" /></div>
 <button class="form-submit" id="l-btn" onclick="doLogin()">Se connecter</button>
 <div class="auth-switch"><span id="l-sw">Pas encore de compte&#160;? </span><a id="l-swl" onclick="gotoRegister()">Cr&#233;er un compte</a></div>
+</div>
+
+<!-- STEP 2: OTP -->
+<div id="login-step2" style="display:none;">
+<div style="text-align:center;margin-bottom:20px;">
+  <div style="font-size:48px;margin-bottom:12px;">&#128737;</div>
+  <div class="auth-form-title">V&#233;rification 2FA</div>
+  <div class="auth-form-sub">Ouvrez votre application d'authentification et entrez le code &#224; 6 chiffres.</div>
+</div>
+<input type="hidden" id="login-otp-email" />
+<div class="alert-box err" id="login-otp-err"></div>
+<div class="form-group">
+  <label>Code 2FA</label>
+  <input type="text" id="login-otp-input" placeholder="000 000" maxlength="7"
+    style="text-align:center;font-size:28px;font-family:'Barlow Condensed',sans-serif;font-weight:800;letter-spacing:8px;"
+    oninput="this.value=this.value.replace(/[^0-9]/g,'')"
+    onkeydown="if(event.key==='Enter')doLogin2FA()" />
+  <div class="field-hint info" style="text-align:center;">Code valide 30 secondes &#8212; actualis&#233; automatiquement</div>
+</div>
+<button class="form-submit" id="login-otp-btn" onclick="doLogin2FA()">V&#233;rifier &amp; Se connecter</button>
+<button onclick="backToLoginStep1()" style="width:100%;background:none;border:none;color:var(--text-muted);font-size:13px;margin-top:12px;cursor:pointer;font-family:'DM Sans',sans-serif;">&#8592; Retour</button>
+</div>
 </div></div></div></div>
 
 <!-- ═══ REGISTER ═══ -->
@@ -1008,8 +1033,8 @@ body {
 <h2 id="rl-title">Rejoignez le<br>Hub S&#233;curit&#233;.</h2>
 <p id="rl-sub">Cr&#233;ez votre compte pour acc&#233;der &#224; la plateforme Safety First de TK Home Solutions.</p>
 <div class="auth-features-list">
-<div class="auth-feature-item"><span class="dot"></span><span id="rl-f1">R&#233;serv&#233; aux @tkelevator.com</span></div>
-<div class="auth-feature-item"><span class="dot"></span><span id="rl-f2">V&#233;rification par email obligatoire</span></div>
+<div class="auth-feature-item"><span class="dot"></span><span id="rl-f1">Acc&#232;s &#224; tous les employ&#233;s</span></div>
+<div class="auth-feature-item"><span class="dot"></span><span id="rl-f2">Protection 2FA obligatoire</span></div>
 <div class="auth-feature-item"><span class="dot"></span><span id="rl-f3">Acc&#232;s s&#233;curis&#233; aux employ&#233;s</span></div>
 <div class="auth-feature-item"><span class="dot"></span><span id="rl-f4">Acc&#232;s imm&#233;diat au tableau de bord</span></div>
 </div></div></div>
@@ -1020,19 +1045,50 @@ body {
 <div class="auth-form-sub" id="r-sub">R&#233;serv&#233; aux employ&#233;s TK Home Solutions &#8212; email professionnel obligatoire</div>
 <div class="alert-box err" id="reg-err"></div>
 <div class="form-group"><label id="r-nl">Nom complet</label><input type="text" id="reg-name" placeholder="Jean Dupont" /></div>
-<div class="form-group"><label id="r-el">Email professionnel</label><input type="email" id="reg-email" placeholder="prenom.nom@tkelevator.com" oninput="validateEmailField()" /><div class="field-hint info" id="email-hint">Doit se terminer par @tkelevator.com</div></div>
-<div class="form-group"><label id="r-idl">Matricule employ&#233; (facultatif)</label><input type="text" id="reg-empid" placeholder="ex. TKE-00421" /></div>
+<div class="form-group"><label id="r-el">Email professionnel</label><input type="email" id="reg-email" placeholder="prenom.nom@votreentreprise.com" oninput="validateEmailField()" /><div class="field-hint info" id="email-hint">Entrez votre adresse email</div></div>
+<div class="form-group"><label id="r-idl">Matricule employ&#233; (facultatif)</label><input type="text" id="reg-empid" placeholder="ex. 00421" /></div>
 <div class="form-group"><label id="r-pl">Mot de passe</label><input type="password" id="reg-pass" placeholder="8 caract&#232;res minimum" oninput="validatePass()" /><div class="field-hint info" id="pass-hint">Au moins 8 caract&#232;res</div></div>
 <div class="form-group"><label id="r-p2l">Confirmer le mot de passe</label><input type="password" id="reg-pass2" placeholder="R&#233;p&#233;tez votre mot de passe" oninput="validatePass2()" /><div class="field-hint" id="pass2-hint" style="display:none"></div></div>
 <button class="form-submit" id="reg-submit-btn" onclick="doRegister()">Cr&#233;er le compte &amp; v&#233;rifier l'email</button>
 <div class="auth-switch"><span id="r-sw">D&#233;j&#224; un compte&#160;? </span><a id="r-swl" onclick="gotoLogin()">Se connecter</a></div>
 </div>
-<div id="reg-verif-step" style="display:none">
-<div class="auth-form-title">V&#233;rifiez votre email</div>
-<div class="auth-form-sub">Un lien de v&#233;rification a &#233;t&#233; envoy&#233; &#224; votre adresse.</div>
-<div class="verif-box" style="display:block"><div class="verif-icon">&#128231;</div><h4>Email de v&#233;rification envoy&#233;</h4><p>Nous avons envoy&#233; un lien &#224;<br><strong id="sent-email-display" style="color:#6b21a8"></strong><br><br>Cliquez sur le lien pour activer votre compte. V&#233;rifiez vos spams si n&#233;cessaire.</p><button class="resend-btn" onclick="resendEmail()">Renvoyer l'email</button></div>
-<div class="alert-box ok" id="resend-ok" style="margin-top:12px;display:none">Email renvoy&#233;&#160;!</div>
-<button class="form-submit" style="margin-top:8px" onclick="gotoLogin()">Retour &#224; la connexion</button>
+<!-- QR CODE STEP -->
+<div id="reg-qr-step" style="display:none;">
+<div class="auth-form-title">Configurer le 2FA</div>
+<div class="auth-form-sub">Scannez ce QR code avec votre application d'authentification.</div>
+<input type="hidden" id="reg-qr-email" />
+
+<div style="background:#f8f6fc;border-radius:14px;padding:20px;text-align:center;margin-bottom:20px;">
+  <p style="font-size:13px;color:#6b7280;margin-bottom:14px;line-height:1.5;">
+    &#128247; Ouvrez <strong>Google Authenticator</strong>, <strong>Authy</strong> ou toute autre app 2FA<br>et scannez ce code&#160;:
+  </p>
+  <img id="reg-qr-img" style="width:200px;height:200px;border-radius:10px;border:3px solid #6b21a8;" alt="QR Code 2FA" />
+  <details style="margin-top:14px;text-align:left;">
+    <summary style="font-size:12px;color:#9ca3af;cursor:pointer;">Vous ne pouvez pas scanner&#160;? Entrez la cl&#233; manuellement</summary>
+    <div style="background:#f0ecf8;border-radius:8px;padding:10px;margin-top:8px;word-break:break-all;font-family:monospace;font-size:12px;color:#6b21a8;" id="reg-secret-key"></div>
+  </details>
+</div>
+
+<div class="alert-box err" id="reg-qr-err"></div>
+<div class="form-group">
+  <label>Entrez le code 6 chiffres pour confirmer</label>
+  <input type="text" id="reg-otp-input" placeholder="000 000" maxlength="7"
+    style="text-align:center;font-size:28px;font-family:'Barlow Condensed',sans-serif;font-weight:800;letter-spacing:8px;"
+    oninput="this.value=this.value.replace(/[^0-9]/g,'')"
+    onkeydown="if(event.key==='Enter')confirm2FASetup()" />
+  <div class="field-hint info" style="text-align:center;">Entrez le code affich&#233; dans votre application</div>
+</div>
+<button class="form-submit" id="reg-confirm-btn" onclick="confirm2FASetup()">Confirmer &amp; Activer le 2FA</button>
+</div>
+
+<!-- SUCCESS STEP -->
+<div id="reg-success-step" style="display:none;">
+<div style="text-align:center;padding:20px 0;">
+  <div style="font-size:56px;margin-bottom:16px;">&#10003;</div>
+  <div class="auth-form-title" style="color:#166534;">Compte cr&#233;&#233;&#160;!</div>
+  <div class="auth-form-sub" style="margin-bottom:24px;">Votre compte est actif et le 2FA est configur&#233;. Vous pouvez maintenant vous connecter.</div>
+  <button class="form-submit" onclick="gotoLogin()">Se connecter maintenant</button>
+</div>
 </div>
 </div></div></div></div>
 

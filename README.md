@@ -1,130 +1,144 @@
 # Safety First — TK Home Solutions
 
-Full-stack workplace safety platform. Deploy-ready for Railway.
+Full-stack workplace safety platform. **100% free deployment** using Render + Neon + Resend.
 
 ---
 
-## Stack
+## Free Stack (no credit card needed)
 
-- **Backend**: Node.js + Express
-- **Database**: PostgreSQL (auto-provisioned by Railway)
-- **Auth**: JWT + bcrypt + email verification
-- **Frontend**: Vanilla HTML/CSS/JS (served by Express)
+| Service | Purpose | Free limit |
+|---------|---------|------------|
+| [Render.com](https://render.com) | Backend (Node/Express) + serves frontend | 750h/month |
+| [Neon.tech](https://neon.tech) | PostgreSQL database | 0.5 GB forever |
+| [Resend.com](https://resend.com) | Email verification | 3,000 emails/month |
 
----
-
-## Project Structure
-
-```
-safety-first/
-├── public/
-│   └── index.html          ← Full frontend (landing + login + dashboard + admin)
-├── src/
-│   server.js               ← Express entry point
-│   db.js                   ← PostgreSQL pool + schema init
-│   authRoutes.js           ← /api/auth/* (register, login, verify, resend)
-│   apiRoutes.js            ← /api/dashboard, /api/users, /api/admin/login
-├── .env.example            ← Copy to .env and fill in values
-├── railway.toml            ← Railway deploy config
-└── package.json
-```
+Render free tier sleeps after 15min of inactivity (first request ~30s). Fine for internal tools.
 
 ---
 
-## Deploy on Railway (step by step)
+## Deploy in 10 minutes
 
-### 1. Push to GitHub
+### Step 1 — Free PostgreSQL on Neon
 
-```bash
-cd safety-first
-git init
-git add .
-git commit -m "Initial commit"
-# Create a repo on GitHub, then:
-git remote add origin https://github.com/YOUR_USERNAME/safety-first.git
-git push -u origin main
-```
+1. Go to neon.tech → Sign up free
+2. New Project → name it safety-first → Create
+3. Copy the Connection string from the dashboard
 
-### 2. Create Railway project
+It looks like:
+postgresql://username:password@ep-something.us-east-1.aws.neon.tech/neondb?sslmode=require
 
-1. Go to [railway.app](https://railway.app) → **New Project**
-2. Click **Deploy from GitHub repo** → select your repo
-3. Railway detects Node.js automatically
+Save this — it is your DATABASE_URL.
 
-### 3. Add PostgreSQL
+---
 
-1. In your Railway project dashboard → **+ New** → **Database** → **PostgreSQL**
-2. Railway automatically sets `DATABASE_URL` in your environment ✅
+### Step 2 — Free email on Resend
 
-### 4. Set environment variables
+1. Go to resend.com → Sign up free
+2. API Keys → Create API Key → copy it
 
-In Railway → your service → **Variables** tab, add:
+SMTP settings:
+  SMTP_HOST = smtp.resend.com
+  SMTP_PORT = 587
+  SMTP_USER = resend
+  SMTP_PASS = re_xxxx   (your Resend API key)
 
-| Variable       | Value                          |
-|----------------|-------------------------------|
-| `NODE_ENV`     | `production`                   |
-| `JWT_SECRET`   | (random 40+ char string)       |
-| `ADMIN_SECRET` | (random 40+ char string)       |
-| `ADMIN_USER`   | `admin`                        |
-| `ADMIN_PASS`   | (your admin password)          |
-| `SMTP_HOST`    | `smtp.gmail.com`               |
-| `SMTP_PORT`    | `587`                          |
-| `SMTP_USER`    | `your-email@gmail.com`         |
-| `SMTP_PASS`    | (Gmail App Password)           |
-| `APP_URL`      | `https://your-app.railway.app` |
+Alternative — Gmail App Password:
+  Google Account → Security → 2-Step Verification → App Passwords → Generate
+  SMTP_HOST = smtp.gmail.com
+  SMTP_USER = your@gmail.com
+  SMTP_PASS = (16-char app password)
 
-> **Gmail App Password**: Google Account → Security → 2-Step Verification → App Passwords
+---
 
-### 5. Deploy
+### Step 3 — Push to GitHub
 
-Railway deploys automatically on every push. First deploy takes ~2 min.
+  cd safety-first
+  git init
+  git add .
+  git commit -m "Initial commit"
+  git remote add origin https://github.com/YOUR_USERNAME/safety-first.git
+  git push -u origin main
 
-Your app is live at `https://your-app.railway.app` 🚀
+---
+
+### Step 4 — Deploy on Render (free)
+
+1. render.com → Sign up free (use GitHub login)
+2. New + → Web Service → connect your GitHub repo
+3. Fill in:
+   - Environment: Node
+   - Build Command: npm install
+   - Start Command: node src/server.js
+   - Plan: Free
+
+4. Add these Environment Variables:
+
+  NODE_ENV          = production
+  DATABASE_URL      = (paste your Neon connection string)
+  JWT_SECRET        = (random 40+ char string — see below)
+  ADMIN_SECRET      = (another random 40+ char string)
+  ADMIN_USER        = admin
+  ADMIN_PASS        = (choose your admin password)
+  SMTP_HOST         = smtp.resend.com
+  SMTP_PORT         = 587
+  SMTP_USER         = resend
+  SMTP_PASS         = (your Resend API key)
+  APP_URL           = (leave blank for now)
+
+5. Click Create Web Service → wait ~3 min for first deploy
+6. Copy your URL: https://safety-first-xxxx.onrender.com
+7. Go back to Environment → add:
+   APP_URL = https://safety-first-xxxx.onrender.com
+
+Done! Your app is live.
+
+---
+
+## Generate random secrets
+
+Run in your terminal:
+  node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+
+Run it twice — once for JWT_SECRET, once for ADMIN_SECRET.
+
+---
+
+## Admin Login
+
+Go to your app → Log In as employee → tap Admin in dashboard header:
+  Username: value of ADMIN_USER (default: admin)
+  Password: value of ADMIN_PASS (what you set)
 
 ---
 
 ## API Reference
 
-| Method | Endpoint                      | Auth     | Description                    |
-|--------|-------------------------------|----------|--------------------------------|
-| POST   | `/api/auth/register`          | None     | Create employee account        |
-| POST   | `/api/auth/login`             | None     | Login, returns JWT             |
-| GET    | `/api/auth/verify/:token`     | None     | Verify email from link         |
-| POST   | `/api/auth/resend-verification` | None   | Resend verification email      |
-| POST   | `/api/admin/login`            | None     | Admin login, returns admin JWT |
-| GET    | `/api/dashboard`              | User JWT | Get dashboard data             |
-| PUT    | `/api/dashboard`              | Admin JWT| Update dashboard data          |
-| GET    | `/api/users`                  | Admin JWT| List all registered users      |
-| GET    | `/health`                     | None     | Health check                   |
-
----
-
-## Default Admin Credentials
-
-Set via environment variables:
-- **Username**: value of `ADMIN_USER` (default: `admin`)
-- **Password**: value of `ADMIN_PASS` (default: `safety2024`)
-
-**Change these before going live.**
-
----
-
-## Email Domain
-
-Only `@tkelevator.com` addresses can register. To change this, edit line in `src/authRoutes.js`:
-```js
-const ALLOWED_DOMAIN = '@tkelevator.com';
-```
+  POST   /api/auth/register              — Create employee account
+  POST   /api/auth/login                 — Login, returns JWT
+  GET    /api/auth/verify/:token         — Verify email from link
+  POST   /api/auth/resend-verification   — Resend verification email
+  POST   /api/admin/login                — Admin login, returns admin JWT
+  GET    /api/dashboard                  — Get dashboard data (user JWT)
+  PUT    /api/dashboard                  — Update dashboard data (admin JWT)
+  GET    /api/users                      — List all users (admin JWT)
+  POST   /api/reports                    — Submit incident report (user JWT)
+  GET    /api/reports                    — View all reports (admin JWT)
+  GET    /health                         — Health check
 
 ---
 
 ## Local Development
 
-```bash
-npm install
-cp .env.example .env
-# Fill in .env with your local PostgreSQL connection and SMTP
-npm run dev
-```
+  npm install
+  cp .env.example .env
+  # Edit .env with your Neon DATABASE_URL and SMTP credentials
+  npm run dev
+  # Open http://localhost:3000
 
-Open `http://localhost:3000`
+---
+
+## Email domain restriction
+
+Only @tkelevator.com addresses can register.
+To change it, edit src/authRoutes.js:
+  const ALLOWED_DOMAIN = '@tkelevator.com';

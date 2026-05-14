@@ -10,14 +10,14 @@ async function initDB() {
   try {
     await client.query(`
       CREATE TABLE IF NOT EXISTS users (
-        id          SERIAL PRIMARY KEY,
-        name        VARCHAR(200) NOT NULL,
-        email       VARCHAR(200) UNIQUE NOT NULL,
-        employee_id VARCHAR(50),
-        password    VARCHAR(200) NOT NULL,
-        verified    BOOLEAN DEFAULT FALSE,
-        verify_token VARCHAR(200),
-        created_at  TIMESTAMP DEFAULT NOW()
+        id              SERIAL PRIMARY KEY,
+        name            VARCHAR(200) NOT NULL,
+        email           VARCHAR(200) UNIQUE NOT NULL,
+        employee_id     VARCHAR(50),
+        password        VARCHAR(200) NOT NULL,
+        two_fa_secret   VARCHAR(200),
+        two_fa_enabled  BOOLEAN DEFAULT FALSE,
+        created_at      TIMESTAMP DEFAULT NOW()
       );
 
       CREATE TABLE IF NOT EXISTS dashboard_data (
@@ -26,9 +26,9 @@ async function initDB() {
         unsafe           INTEGER DEFAULT 0,
         sif              INTEGER DEFAULT 0,
         quiz             INTEGER DEFAULT 0,
-        moment_title_fr  TEXT DEFAULT 'Moment Sécurité',
+        moment_title_fr  TEXT DEFAULT 'Moment Securite',
         moment_title_en  TEXT DEFAULT 'Safety Moment',
-        moment_text_fr   TEXT DEFAULT 'Le message de sécurité de la semaine apparaîtra ici.',
+        moment_text_fr   TEXT DEFAULT 'Le message de securite de la semaine apparaitra ici.',
         moment_text_en   TEXT DEFAULT 'Safety message or awareness content will appear here.',
         moment_btn_fr    TEXT DEFAULT 'Lire plus',
         moment_btn_en    TEXT DEFAULT 'Read More',
@@ -59,7 +59,13 @@ async function initDB() {
         created_at      TIMESTAMP DEFAULT NOW()
       );
     `);
-    console.log('✅ Database initialized');
+
+    await client.query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS two_fa_secret  VARCHAR(200);`).catch(()=>{});
+    await client.query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS two_fa_enabled BOOLEAN DEFAULT FALSE;`).catch(()=>{});
+    await client.query(`ALTER TABLE users DROP COLUMN IF EXISTS verified;`).catch(()=>{});
+    await client.query(`ALTER TABLE users DROP COLUMN IF EXISTS verify_token;`).catch(()=>{});
+
+    console.log('Database initialized');
   } finally {
     client.release();
   }

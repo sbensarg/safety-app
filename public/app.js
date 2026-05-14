@@ -12,14 +12,14 @@ var T = {
     ll_title: 'Bon retour\nparmi nous.', ll_sub: 'Connectez-vous pour acc\u00e9der \u00e0 votre tableau de bord TK Home Solutions.',
     ll_f1:'Indicateurs de s\u00e9curit\u00e9 en direct',ll_f2:'Moments s\u00e9curit\u00e9 hebdomadaires',ll_f3:'Signalement d\u2019incidents',ll_f4:'Notifications lors des mises \u00e0 jour',
     l_back:'Retour \u00e0 l\u2019accueil',l_title:'Connexion',l_sub:'Utilisez votre compte entreprise TK Home Solutions',
-    l_el:'Email professionnel',l_eh:'Doit \u00eatre une adresse @tkelevator.com',l_pl:'Mot de passe',l_btn:'Se connecter',
+    l_el:'Email professionnel',l_eh:'Entrez votre adresse email',l_pl:'Mot de passe',l_btn:'Se connecter',
     l_sw:'Pas encore de compte\u00a0? ',l_swl:'Cr\u00e9er un compte',
     rl_title:'Rejoignez le\nHub S\u00e9curit\u00e9.',rl_sub:'Cr\u00e9ez votre compte pour acc\u00e9der \u00e0 la plateforme Safety First de TK Home Solutions.',
-    rl_f1:'R\u00e9serv\u00e9 aux @tkelevator.com',rl_f2:'V\u00e9rification par email obligatoire',rl_f3:'Acc\u00e8s s\u00e9curis\u00e9 aux employ\u00e9s',rl_f4:'Acc\u00e8s imm\u00e9diat au tableau de bord',
+    rl_f1:'Acc\u00e8s \u00e0 tous les employ\u00e9s',rl_f2:'Protection 2FA obligatoire',rl_f3:'Acc\u00e8s s\u00e9curis\u00e9 aux employ\u00e9s',rl_f4:'Acc\u00e8s imm\u00e9diat au tableau de bord',
     r_back:'Retour \u00e0 l\u2019accueil',r_title:'Cr\u00e9er un compte',r_sub:'R\u00e9serv\u00e9 aux employ\u00e9s TK Home Solutions \u2014 email professionnel obligatoire',
     r_nl:'Nom complet',r_el:'Email professionnel',r_idl:'Matricule employ\u00e9 (facultatif)',r_pl:'Mot de passe',r_p2l:'Confirmer le mot de passe',
     r_btn:'Cr\u00e9er le compte & v\u00e9rifier l\u2019email',r_sw:'D\u00e9j\u00e0 un compte\u00a0? ',r_swl:'Se connecter',
-    email_hint:'Doit se terminer par @tkelevator.com', email_ok:'Adresse email TK Home Solutions valide', email_err:'Seules les adresses @tkelevator.com sont autoris\u00e9es',
+    email_hint:'Entrez votre adresse email', email_ok:'Adresse email TK Home Solutions valide', email_err:'Adresse email invalide',
     pass_hint:'Au moins 8 caract\u00e8res', pass_ok:'Force du mot de passe\u00a0: bon', pass_err:'Au moins 8 caract\u00e8res requis', pass2_ok:'Les mots de passe correspondent', pass2_err:'Les mots de passe ne correspondent pas',
     // Dashboard
     d_stats:'Tableau de bord s\u00e9curit\u00e9',d_days:'Jours sans accident',d_unsafe:'Conditions non s\u00e9curis\u00e9es',
@@ -46,9 +46,9 @@ var T = {
     rpt_o0:'S\u00e9lectionnez le type',rpt_o1:'Condition non s\u00e9curis\u00e9e',rpt_o2:'Presque-accident (Near Miss)',rpt_o3:'Incident',rpt_o4:'Blessure',rpt_o5:'D\u00e9g\u00e2t mat\u00e9riel',rpt_o6:'Risque environnemental',
     // Errors / messages
     err_name:'Veuillez entrer votre nom complet.',err_email_empty:'Veuillez entrer votre adresse email.',
-    err_email_domain:'Seules les adresses @tkelevator.com sont autoris\u00e9es.',
+    err_email_domain:'Veuillez entrer une adresse email valide.',
     err_pass_short:'Le mot de passe doit comporter au moins 8 caract\u00e8res.',err_pass_match:'Les mots de passe ne correspondent pas.',
-    err_login_email:'Veuillez entrer votre adresse email.',err_login_domain:'Seules les adresses @tkelevator.com sont autoris\u00e9es.',err_login_pass:'Veuillez entrer votre mot de passe.',
+    err_login_email:'Veuillez entrer votre adresse email.',err_login_domain:'Veuillez entrer une adresse email valide.',err_login_pass:'Veuillez entrer votre mot de passe.',
     login_sending:'Connexion en cours...',login_success:'Connexion r\u00e9ussie\u00a0!',
     reg_sending:'Envoi de l\u2019email de v\u00e9rification...', reg_btn_default:'Cr\u00e9er le compte & v\u00e9rifier l\u2019email',
     logout_msg:'Vous avez \u00e9t\u00e9 d\u00e9connect\u00e9.',
@@ -70,14 +70,14 @@ var T = {
     ll_title:'Welcome\nback.',ll_sub:'Log in to access your personalized TK Home Solutions safety dashboard.',
     ll_f1:'Live safety metrics',ll_f2:'Weekly safety moments',ll_f3:'Incident reporting',ll_f4:'Push notifications on updates',
     l_back:'Back to home',l_title:'Log In',l_sub:'Use your TK Home Solutions company account',
-    l_el:'Company Email',l_eh:'Must be a @tkelevator.com email address',l_pl:'Password',l_btn:'Log In',
+    l_el:'Company Email',l_eh:'Enter your email address',l_pl:'Password',l_btn:'Log In',
     l_sw:"Don't have an account? ",l_swl:'Create one',
     rl_title:'Join the\nSafety Hub.',rl_sub:"Create your account to access TK Home Solutions' Safety First platform.",
-    rl_f1:'Restricted to @tkelevator.com',rl_f2:'Email verification required',rl_f3:'Secure company-only access',rl_f4:'Instant dashboard access',
+    rl_f1:'Open to all company employees',rl_f2:'2FA protection required',rl_f3:'Secure company-only access',rl_f4:'Instant dashboard access',
     r_back:'Back to home',r_title:'Create Account',r_sub:'TK Home Solutions employees only \u2014 company email required',
     r_nl:'Full Name',r_el:'Company Email',r_idl:'Employee ID (optional)',r_pl:'Password',r_p2l:'Confirm Password',
     r_btn:'Create Account & Verify Email',r_sw:'Already have an account? ',r_swl:'Log in',
-    email_hint:'Must end with @tkelevator.com',email_ok:'Valid TK Home Solutions email address',email_err:'Only @tkelevator.com email addresses are allowed',
+    email_hint:'Enter your email address',email_ok:'Valid TK Home Solutions email address',email_err:'Invalid email address',
     pass_hint:'At least 8 characters',pass_ok:'Password strength: good',pass_err:'Password must be at least 8 characters',pass2_ok:'Passwords match',pass2_err:'Passwords do not match',
     d_stats:'Safety Dashboard',d_days:'Days without accident',d_unsafe:'Unsafe conditions',
     fg_rules:'10 Safety Rules',fg_traps:'5 Traps',fg_ppe:'PPE Guide',fg_report:'Report Incident',
@@ -98,9 +98,9 @@ var T = {
     rpt_upload_txt:'Tap to upload photo',rpt_btn:'Submit Report',
     rpt_o0:'Select type of report',rpt_o1:'Unsafe Condition',rpt_o2:'Near Miss',rpt_o3:'Incident',rpt_o4:'Injury',rpt_o5:'Equipment Damage',rpt_o6:'Environmental Concern',
     err_name:'Please enter your full name.',err_email_empty:'Please enter your company email address.',
-    err_email_domain:'Only @tkelevator.com email addresses are permitted.',
+    err_email_domain:'Please enter a valid email address.',
     err_pass_short:'Password must be at least 8 characters.',err_pass_match:'Passwords do not match.',
-    err_login_email:'Please enter your email address.',err_login_domain:'Only @tkelevator.com email addresses are permitted.',err_login_pass:'Please enter your password.',
+    err_login_email:'Please enter your email address.',err_login_domain:'Please enter a valid email address.',err_login_pass:'Please enter your password.',
     login_sending:'Logging in...',login_success:'Login successful!',
     reg_sending:'Sending verification email...',reg_btn_default:'Create Account & Verify Email',
     logout_msg:'You have been logged out.',
@@ -116,7 +116,9 @@ var T = {
   }
 };
 
-var API = window.location.origin;
+// Auto-detects: same origin when served together (Render),
+// or set BACKEND_URL if frontend is on Vercel and backend on Render
+var API = window.BACKEND_URL || window.location.origin;
 var userToken = null, adminToken = null, currentUser = null, currentLang = 'fr';
 var dashData = {};
 
@@ -135,7 +137,7 @@ function applyLang() {
   sh('ll-title','ll_title'); st('ll-sub','ll_sub'); st('ll-f1','ll_f1'); st('ll-f2','ll_f2'); st('ll-f3','ll_f3'); st('ll-f4','ll_f4');
   st('l-back','l_back'); st('l-title','l_title'); st('l-sub','l_sub'); st('l-el','l_el'); st('l-eh','l_eh'); st('l-pl','l_pl'); st('l-btn','l_btn'); st('l-sw','l_sw'); st('l-swl','l_swl');
   sa('login-email','placeholder', L==='fr'?'email_hint_ph':'email_hint_ph');
-  document.getElementById('login-email') && (document.getElementById('login-email').placeholder = L==='fr'?'prenom.nom@tkelevator.com':'yourname@tkelevator.com');
+  document.getElementById('login-email') && (document.getElementById('login-email').placeholder = L==='fr'?'prenom.nom@votreentreprise.com':'yourname@yourcompany.com');
   // Register
   sh('rl-title','rl_title'); st('rl-sub','rl_sub'); st('rl-f1','rl_f1'); st('rl-f2','rl_f2'); st('rl-f3','rl_f3'); st('rl-f4','rl_f4');
   st('r-back','r_back'); st('r-title','r_title'); st('r-sub','r_sub');
@@ -254,7 +256,7 @@ function doLogout(){
 }
 
 // ── EMAIL / PASS VALIDATION ──
-function isCompanyEmail(e){ return e.trim().toLowerCase().endsWith('@tkelevator.com'); }
+function isCompanyEmail(e){ return e.trim().toLowerCase().includes('@') && e.trim().length > 5; }
 function validateEmailField(){
   var email=document.getElementById('reg-email').value, hint=document.getElementById('email-hint'), inp=document.getElementById('reg-email');
   if(!email){inp.className='';hint.className='field-hint info';hint.textContent=t('email_hint');return;}
@@ -283,8 +285,7 @@ async function doRegister(){
       pass2=document.getElementById('reg-pass2').value, errEl=document.getElementById('reg-err');
   errEl.style.display='none';
   if(!name){showFErr(errEl,t('err_name'));return;}
-  if(!email){showFErr(errEl,t('err_email_empty'));return;}
-  if(!isCompanyEmail(email)){showFErr(errEl,t('err_email_domain'));return;}
+  if(!email||!email.includes('@')){showFErr(errEl,t('err_email_empty'));return;}
   if(pass.length<8){showFErr(errEl,t('err_pass_short'));return;}
   if(pass!==pass2){showFErr(errEl,t('err_pass_match'));return;}
   var btn=document.getElementById('reg-submit-btn'); btn.disabled=true; btn.textContent=t('reg_sending');
@@ -292,30 +293,77 @@ async function doRegister(){
   try{
     var res=await fetch(API+'/api/auth/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,email,employee_id:empid,password:pass})});
     var data=await res.json(); hideLoader();
-    if(!res.ok){showFErr(errEl,data.error||t('err_email_domain'));}
-    else{ document.getElementById('sent-email-display').textContent=email; document.getElementById('reg-form-step').style.display='none'; document.getElementById('reg-verif-step').style.display='block'; }
+    if(!res.ok){showFErr(errEl,data.error||'Erreur.');}
+    else{
+      // Show QR code step for 2FA setup
+      document.getElementById('reg-form-step').style.display='none';
+      document.getElementById('reg-qr-step').style.display='block';
+      document.getElementById('reg-qr-img').src=data.qr_code;
+      document.getElementById('reg-qr-email').value=email;
+      document.getElementById('reg-secret-key').textContent=data.secret_key;
+    }
   }catch(e){hideLoader();showFErr(errEl,'Impossible de joindre le serveur.');}
   btn.disabled=false; btn.textContent=t('reg_btn_default');
 }
-async function resendEmail(){
-  var email=document.getElementById('sent-email-display').textContent; if(!email)return;
-  try{ await fetch(API+'/api/auth/resend-verification',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email})});
-  var ok=document.getElementById('resend-ok'); ok.style.display='block'; setTimeout(function(){ok.style.display='none';},3500); }catch(e){}
+
+async function confirm2FASetup(){
+  var email=document.getElementById('reg-qr-email').value;
+  var otp=document.getElementById('reg-otp-input').value.replace(/\s/g,'');
+  var errEl=document.getElementById('reg-qr-err');
+  errEl.style.display='none';
+  if(!otp||otp.length!==6){showFErr(errEl,currentLang==='fr'?'Entrez le code 6 chiffres de votre application.':'Enter the 6-digit code from your app.');return;}
+  var btn=document.getElementById('reg-confirm-btn'); btn.disabled=true;
+  showLoader(currentLang==='fr'?'Vérification...':'Verifying...');
+  try{
+    var res=await fetch(API+'/api/auth/verify-2fa-setup',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,otp})});
+    var data=await res.json(); hideLoader();
+    if(!res.ok){showFErr(errEl,data.error||'Code incorrect.');}
+    else{
+      document.getElementById('reg-qr-step').style.display='none';
+      document.getElementById('reg-success-step').style.display='block';
+    }
+  }catch(e){hideLoader();showFErr(errEl,'Erreur réseau.');}
+  btn.disabled=false;
 }
 
 // ── LOGIN ──
+// Step 1 — email + password
 async function doLogin(){
   var email=document.getElementById('login-email').value.trim(), pass=document.getElementById('login-pass').value, errEl=document.getElementById('login-err');
   errEl.style.display='none';
-  if(!email){showFErr(errEl,t('err_login_email'));return;}
-  if(!isCompanyEmail(email)){showFErr(errEl,t('err_login_domain'));return;}
+  if(!email||!email.includes('@')){showFErr(errEl,t('err_login_email'));return;}
   if(!pass){showFErr(errEl,t('err_login_pass'));return;}
-  var btn=document.querySelector('#login-page .form-submit'); btn.disabled=true; btn.textContent=t('login_sending');
+  var btn=document.querySelector('#login-step1 .form-submit'); btn.disabled=true; btn.textContent=t('login_sending');
   showLoader(t('login_sending'));
   try{
     var res=await fetch(API+'/api/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password:pass})});
     var data=await res.json(); hideLoader();
-    if(!res.ok){showFErr(errEl,data.error||t('err_login_domain'));}
+    if(!res.ok){showFErr(errEl,data.error||'Identifiants incorrects.');}
+    else if(data.needs_2fa){
+      // Move to OTP step
+      document.getElementById('login-step1').style.display='none';
+      document.getElementById('login-step2').style.display='block';
+      document.getElementById('login-otp-email').value=email;
+      document.getElementById('login-otp-input').value='';
+      document.getElementById('login-otp-input').focus();
+    }
+  }catch(e){hideLoader();showFErr(errEl,'Impossible de joindre le serveur.');}
+  btn.disabled=false; btn.textContent=t('l_btn');
+}
+
+// Step 2 — OTP verification
+async function doLogin2FA(){
+  var email=document.getElementById('login-otp-email').value;
+  var otp=document.getElementById('login-otp-input').value.replace(/\s/g,'');
+  var errEl=document.getElementById('login-otp-err');
+  errEl.style.display='none';
+  if(!otp||otp.length!==6){showFErr(errEl,currentLang==='fr'?'Entrez le code 6 chiffres.':'Enter the 6-digit code.');return;}
+  var btn=document.getElementById('login-otp-btn'); btn.disabled=true; btn.textContent=t('login_sending');
+  showLoader(t('login_sending'));
+  try{
+    var res=await fetch(API+'/api/auth/login-2fa',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,otp})});
+    var data=await res.json(); hideLoader();
+    if(!res.ok){showFErr(errEl,data.error||'Code incorrect.');}
     else{
       userToken=data.token; currentUser=data.user;
       try{localStorage.setItem('tks_token',data.token);localStorage.setItem('tks_user',JSON.stringify(data.user));}catch(e){}
@@ -323,8 +371,14 @@ async function doLogin(){
       showToast(t('welcome')+data.user.name+'\u00a0!','ok');
       gotoDashboard();
     }
-  }catch(e){hideLoader();showFErr(errEl,'Impossible de joindre le serveur.');}
-  btn.disabled=false; btn.textContent=t('l_btn');
+  }catch(e){hideLoader();showFErr(errEl,'Erreur réseau.');}
+  btn.disabled=false;
+}
+
+function backToLoginStep1(){
+  document.getElementById('login-step2').style.display='none';
+  document.getElementById('login-step1').style.display='block';
+  document.getElementById('login-err').style.display='none';
 }
 
 // ── DASHBOARD DATA ──
@@ -490,7 +544,7 @@ async function submitReport(){
 }
 
 // ── FORM HELPERS ──
-function clearLoginForm(){ document.getElementById('login-email').value=''; document.getElementById('login-pass').value=''; document.getElementById('login-err').style.display='none'; }
+function clearLoginForm(){ document.getElementById('login-email').value=''; document.getElementById('login-pass').value=''; document.getElementById('login-err').style.display='none'; document.getElementById('login-otp-input') && (document.getElementById('login-otp-input').value=''); document.getElementById('login-otp-err') && (document.getElementById('login-otp-err').style.display='none'); var s1=document.getElementById('login-step1'); var s2=document.getElementById('login-step2'); if(s1)s1.style.display='block'; if(s2)s2.style.display='none'; }
 function resetRegForm(){
   document.getElementById('reg-form-step').style.display='block'; document.getElementById('reg-verif-step').style.display='none';
   ['reg-name','reg-email','reg-empid','reg-pass','reg-pass2'].forEach(function(id){var el=document.getElementById(id);if(el){el.value='';el.className='';}});
